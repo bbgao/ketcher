@@ -125,6 +125,10 @@ const toolActions = {
   'shape-line': {
     title: 'Shape Line',
     action: { tool: 'simpleobject', opts: SimpleObjectMode.line }
+  },
+  'text-editor': {
+    title: 'Add text',
+    action: { tool: 'texteditor' }
   }
 }
 

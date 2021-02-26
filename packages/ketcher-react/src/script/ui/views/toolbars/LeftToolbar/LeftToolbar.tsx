@@ -105,6 +105,9 @@ const LeftToolbar = (props: Props) => {
 
         {isStandalone ? null : <Shape {...rest} height={height} />}
       </Group>
+      <Group>
+        <Item id="text-editor" />
+      </Group>
     </div>
   )
 }
