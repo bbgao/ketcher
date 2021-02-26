@@ -18,6 +18,7 @@ import PeriodTable from '../views/modal/components/PeriodTable'
 import Rgroup from './toolbox/rgroup'
 import TemplateAttach from './template/template-attach'
 import TemplatesLib from './template/template-lib'
+import TextEditor from '../views/modal/components/TextEditor'
 
 // schemify dialogs
 import Atom from './toolbox/atom'
@@ -60,5 +61,6 @@ export default {
   save: Save,
   settings: Settings,
   sgroup: Sgroup,
-  sdata: Sdata
+  sdata: Sdata,
+  texteditor: TextEditor
 }
