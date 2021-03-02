@@ -14,30 +14,24 @@
  * limitations under the License.
  ***************************************************************************/
 
-function TextEditorTool(editor) {
-  if (!(this instanceof TextEditorTool)) {
-    editor.selection(null)
-    return new TextEditorTool(editor)
+import { fromTextAddition } from '../actions/text'
+class TextEditorTool {
+  constructor(editor) {
+    if (!(this instanceof TextEditorTool)) {
+      editor.selection(null)
+      return new TextEditorTool(editor)
+    }
+
+    this.editor = editor
   }
 
-  this.editor = editor
-}
+  click(event) {
+    const render = this.editor.render
 
-TextEditorTool.prototype.click = function (event) {
-  console.log('text editor event', event)
-  const render = this.editor.render
-  const ci = this.editor.findItem(event, ['atoms']) //add 'text' Item type
-
-  if (!ci) {
-    this.editor.hover(null)
     propsDialog(this.editor, null, render.page2obj(event))
-    return true
-  } else if (ci.map === 'atoms') {
-    this.editor.hover(null)
-    propsDialog(this.editor, ci.id)
+
     return true
   }
-  return true
 }
 
 function propsDialog(editor, id, pos) {
@@ -46,8 +40,12 @@ function propsDialog(editor, id, pos) {
   })
 
   Promise.resolve(res)
-    .then(() => console.log('rendered'))
-    .catch(() => null) // w/o changes
+    .then(elem => {
+      elem = Object.assign({}, null, elem)
+
+      editor.update(fromTextAddition(editor.render.ctab, pos, elem))
+    })
+    .catch(() => null)
 }
 
 export default TextEditorTool
