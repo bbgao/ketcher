@@ -38,6 +38,7 @@ import ReEnhancedFlag from './reenhancedflag'
 import ReSGroup from './resgroup'
 import ReLoop from './reloop'
 import ReSimpleObject from './resimpleobject'
+import ReText from './retext'
 
 var LAYER_MAP = {
   background: 0,
@@ -64,8 +65,9 @@ function ReStruct(molecule, render) {
   this.sgroupData = new Map()
   this.enhancedFlags = new Map()
   this.simpleObjects = new Map()
+  this.texts = new Map()
   /** @type {Struct} */
-  this.molecule = molecule || new Struct()
+  this.molecule = molecule || new Struct() //TODO: rename 'molecule', as Struct is an object representing all entities we render in editor
   this.initialized = false
   this.layers = []
   this.initLayers()
@@ -124,6 +126,10 @@ function ReStruct(molecule, render) {
     this.sgroups.set(id, new ReSGroup(item))
     if (item.type === 'DAT' && !item.data.attached)
       this.sgroupData.set(id, new ReDataSGroupData(item)) // [MK] sort of a hack, we use the SGroup id for the data field id
+  })
+
+  molecule.texts.forEach((text, textId) => {
+    this.texts.set(textId, new ReText(text))
   })
 }
 
@@ -600,6 +606,13 @@ ReStruct.prototype.showBonds = function () {
   })
 }
 
+ReStruct.prototype.showText = function () {
+  const options = this.render.options
+  this.texts.forEach((text, textId) => {
+    text.show(this, textId, options)
+  })
+}
+
 ReStruct.prototype.setSelection = function (selection) {
   const redraw = arguments.length === 0 // render.update only
 
@@ -647,7 +660,8 @@ ReStruct.maps = {
   enhancedFlags: ReEnhancedFlag,
   sgroups: ReSGroup,
   reloops: ReLoop,
-  simpleObjects: ReSimpleObject
+  simpleObjects: ReSimpleObject,
+  texts: ReText
 }
 
 export default ReStruct
@@ -660,5 +674,6 @@ export {
   ReRGroup,
   ReEnhancedFlag,
   ReSGroup,
-  ReSimpleObject
+  ReSimpleObject,
+  ReText
 }
