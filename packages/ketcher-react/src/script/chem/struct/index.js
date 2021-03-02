@@ -46,6 +46,7 @@ function Struct() {
   this.name = ''
   this.sGroupForest = new SGroupForest()
   this.simpleObjects = new Pool()
+  this.texts = new Pool()
 }
 
 Struct.prototype.hasRxnProps = function () {
@@ -463,6 +464,11 @@ Struct.prototype.rxnArrowSetPos = function (id, pp) {
 Struct.prototype.simpleObjectSetPos = function (id, pos) {
   const item = this.simpleObjects.get(id)
   item.pos = pos
+}
+
+Struct.prototype.textSetPos = function (id, pp) {
+  const item = this.texts.get(id)
+  item.pp = pp
 }
 
 /**
