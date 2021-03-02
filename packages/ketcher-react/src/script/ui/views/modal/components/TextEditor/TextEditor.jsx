@@ -17,18 +17,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Dialog } from '../../views/components'
-// import styles from './TextEditor.module.less'
-
-export const textSchema = {
-  title: 'text',
-  type: 'object',
-  properties: {
-    values: {
-      type: 'string'
-    }
-  }
-}
+import { Dialog } from '../../../../views/components/Dialog'
 
 const TextEditor = ({ disabledIds, values, formState, type, ...props }) => {
   return (
